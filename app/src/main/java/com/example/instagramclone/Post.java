@@ -1,19 +1,26 @@
 package com.example.instagramclone;
 
+import android.os.Parcelable;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelPropertyConverter;
+
 import java.security.Key;
 
+
 @ParseClassName("Post") // Should match exactly what we named the entity in the Parse dashboard (in this case Post)
-public class Post extends ParseObject {
+public class Post extends ParseObject implements Parcelable {
 
     // Need to define getters and setters for each Key that we have defined (names of Parse columns)
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION); // Will get the description on the Parse object
