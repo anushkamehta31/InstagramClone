@@ -1,5 +1,6 @@
 package com.example.instagramclone.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
+import java.util.Date;
+
 public class PostDetailsFragment extends Fragment {
 
     private Post post;
@@ -32,6 +36,7 @@ public class PostDetailsFragment extends Fragment {
     private TextView getTvDescription;
     private ImageButton ibBack;
     private TextView tvTimeStamp;
+    public static final String TAG = "PostDetailsFragmentCompose";
 
     public PostDetailsFragment() {
         // Required empty public constructor
@@ -83,5 +88,10 @@ public class PostDetailsFragment extends Fragment {
                 fragmentManager.replace(R.id.flContainer, fragment).commit();
             }
         });
+
+        Date createdAt = post.getCreatedAt();
+        String timeAgo = post.calculateTimeAgo(createdAt);
+        tvTimeStamp.setText(timeAgo);
     }
+
 }
