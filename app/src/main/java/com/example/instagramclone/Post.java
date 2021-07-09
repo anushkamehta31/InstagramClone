@@ -30,22 +30,27 @@ public class Post extends ParseObject implements Parcelable {
         return getString(KEY_DESCRIPTION); // Will get the description on the Parse object
     }
 
+    // Set description
     public  void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
     }
 
+    // Get image
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
     }
 
+    // Set image
     public void setImage(ParseFile parseFile) {
         put(KEY_IMAGE, parseFile);
     }
 
+    // Get user
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
     }
 
+    // Set the user
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }

@@ -15,6 +15,7 @@ import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
 
+    // Adapter for grid display on profile pictures
     Context context;
     private LayoutInflater inflater;
     private List<Post> userPosts;
@@ -23,7 +24,6 @@ public class GridAdapter extends BaseAdapter {
     public GridAdapter(Context context, List<Post> userPosts) {
         this.context = context;
         this.userPosts = userPosts;
-
     }
 
     @Override
@@ -49,10 +49,12 @@ public class GridAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid_item, null);
         }
+        // Get the reference and current post
         ivGridImage = convertView.findViewById(R.id.ivGridImage);
         Post post = userPosts.get(position);
         ParseFile image = post.getImage();
 
+        // if the image is not null place it in the grid
         if (image != null) {
             Glide.with(context).load(image.getUrl()).into(ivGridImage);
         }

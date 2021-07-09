@@ -84,6 +84,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfile = itemView.findViewById(R.id.ivProfile);
 
+            // OnClick listener to view the post in detail
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,6 +96,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 }
             });
 
+            // Set on click listeners to profile pic and username to open profile page
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,6 +113,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         }
 
+        // Function to open the profile page of a user if either the profile picture or username
+        // is selected
         private void openProfile() {
             MainActivity activity = (MainActivity) context;
             FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
@@ -128,12 +132,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
 
+            // Check that the id is smaller than the minID and update accordingly to user
+            // endless pagination
             Long id = Long.valueOf(posts.get(getAdapterPosition()).getCreatedAt().getTime());
             if (id < minID) minID = id;
 
+            // Get the correct user and profile image
             ParseUser user = post.getUser();
             ParseFile profileImage = user.getParseFile(KEY_PROFILE);
 
+            // If the user does not have a profile picture use the default
             if (profileImage != null) {
                 Glide.with(context).load(profileImage.getUrl()).into(ivProfile);
             } else {

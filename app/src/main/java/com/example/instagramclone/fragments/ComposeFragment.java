@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.instagramclone.Constants;
@@ -69,11 +70,13 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Get reference to all compose views
         etDescription = view.findViewById(R.id.etDescription);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
+        // Set on click listener on camera button
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,19 +85,26 @@ public class ComposeFragment extends Fragment {
         });
 
 
+        // On click listener on submit button to create a post
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
+
+                // Get the text from the EditText button
                 String description = etDescription.getText().toString();
+
+                // If the description is empty then we don't publish the post
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(),  getString(R.string.empty_description), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                // Post must have an image
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
                     Toast.makeText(getContext(),  getString(R.string.no_image), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                // Save the post with the current user pointer
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
             }
@@ -157,6 +167,9 @@ public class ComposeFragment extends Fragment {
     }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
+        // on some click or some loading we need to wait for...
+        ProgressBar pb = (ProgressBar) getView().findViewById(R.id.pbLoading);
+        pb.setVisibility(ProgressBar.VISIBLE);
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
@@ -173,5 +186,6 @@ public class ComposeFragment extends Fragment {
                 ivPostImage.setImageResource(0);
             }
         });
+        pb.setVisibility(ProgressBar.INVISIBLE);
     }
 }

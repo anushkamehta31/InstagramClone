@@ -126,6 +126,7 @@ public class PostsFragment extends Fragment {
     }
 
     public void fetchTimelineAsync(int page) {
+        // For refreshing feed
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(Constants.NUM_POSTS);

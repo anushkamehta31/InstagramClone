@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment;
+                // Depending on which navigation tab is selected, switch to the correct fragment
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
                         fragment = new PostsFragment();
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        // Set default selection
+        // Set default selection is the home tab
         bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 

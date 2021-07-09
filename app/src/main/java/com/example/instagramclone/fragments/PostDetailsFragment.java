@@ -39,6 +39,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     public static PostDetailsFragment newInstance(Post post) {
+        // Create a fragment with arguments
         PostDetailsFragment fragment = new PostDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable("itemPost", post);
@@ -50,6 +51,7 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Retrieve arguments passed
         post = (Post) getArguments().getParcelable("itemPost");
     }
 
@@ -69,6 +71,7 @@ public class PostDetailsFragment extends Fragment {
         ibBack = view.findViewById(R.id.ibBack);
         tvTimeStamp = view.findViewById(R.id.tvTimeStamp);
 
+        // Populate all of the views
         tvDescription.setText(post.getDescription());
         tvUsername.setText(post.getUser().getUsername());
         ParseFile image = post.getImage();
@@ -76,6 +79,7 @@ public class PostDetailsFragment extends Fragment {
             Glide.with(getContext()).load(image.getUrl()).into(ivImage);
         }
 
+        // Return to home screen button
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +89,7 @@ public class PostDetailsFragment extends Fragment {
             }
         });
 
+        // Get the time stamp from DateUtils and set it in the textview
         long time = post.getCreatedAt().getTime();
         String timeAgo = (String) DateUtils.getRelativeTimeSpanString(time);
         tvTimeStamp.setText(timeAgo);
