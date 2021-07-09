@@ -1,8 +1,6 @@
 package com.example.instagramclone;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +18,6 @@ import com.example.instagramclone.fragments.PostDetailsFragment;
 import com.example.instagramclone.fragments.ProfileUserFragment;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-
-import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -76,6 +73,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private ImageView ivProfile;
+        private ImageView ivHeart;
+        boolean liked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +82,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfile = itemView.findViewById(R.id.ivProfile);
+            ivHeart = itemView.findViewById(R.id.ivHeart);
 
             // OnClick listener to view the post in detail
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +123,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ft.commit();
         }
 
+
+
         public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            liked = false;
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
@@ -147,6 +150,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             } else {
                 Glide.with(context).load(R.drawable.pfp).into(ivProfile);
             }
+
+            ivHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (liked) ivHeart.setImageResource(R.drawable.ufi_heart);
+                    else {
+                        ivHeart.setImageResource(R.drawable.ufi_heart_active);
+                    }
+                    liked = !liked;
+                }
+            });
 
         }
 

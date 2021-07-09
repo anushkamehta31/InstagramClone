@@ -47,7 +47,8 @@
         android:padding="5dp"
         android:layout_below="@+id/ivImage"
         android:layout_marginTop="3dp"
-        android:layout_marginStart="4dp"/>
+        android:layout_marginStart="4dp"
+        android:transitionName="like"/>
 
     <ImageView
         android:id="@+id/ivComment"
