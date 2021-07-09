@@ -51,6 +51,7 @@ public class ComposeFragment extends Fragment {
     private String photoFileName = "photo.jpg";
     public static final String TAG = "ComposeFragment";
 
+
     public ComposeFragment() {
         // Required empty public constructor
     }
@@ -82,15 +83,16 @@ public class ComposeFragment extends Fragment {
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
                 if (description.isEmpty()) {
-                    Toast.makeText(getContext(), String.valueOf(R.string.empty_description), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.empty_description), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
-                    Toast.makeText(getContext(), String.valueOf(R.string.no_image), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.no_image), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -121,6 +123,7 @@ public class ComposeFragment extends Fragment {
         }
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -132,7 +135,7 @@ public class ComposeFragment extends Fragment {
                 // Load the taken image into a preview
                 ivPostImage.setImageBitmap(takenImage);
             } else { // Result was a failure
-                Toast.makeText(getContext(), String.valueOf(R.string.no_picture), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.no_picture), Toast.LENGTH_SHORT).show();
             }
         }
     }

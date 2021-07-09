@@ -8,14 +8,24 @@
     android:paddingBottom="5dp"
     >
 
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_margin="3dp"
+        />
+
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:padding="10dp"
+        android:padding="0dp"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/ivProfile"
         tools:text="anushkamehta" />
 
     <ImageView
@@ -24,7 +34,9 @@
         android:layout_height="300dp"
         tools:srcCompat="@tools:sample/avatars"
         android:scaleType="centerCrop"
-        android:layout_below="@+id/tvUsername"
+        android:layout_below="@+id/ivProfile"
+        android:layout_marginTop="4dp"
+
         />
 
     <ImageView

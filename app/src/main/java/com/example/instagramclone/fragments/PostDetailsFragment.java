@@ -1,16 +1,13 @@
 package com.example.instagramclone.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Parcelable;
-import android.util.Log;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +18,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.instagramclone.Post;
 import com.example.instagramclone.R;
-import com.example.instagramclone.Utils;
 import com.parse.ParseFile;
 
-import org.parceler.Parcels;
-
-import java.util.Date;
+import static android.text.format.DateUtils.getRelativeTimeSpanString;
 
 public class PostDetailsFragment extends Fragment {
 
@@ -36,6 +30,7 @@ public class PostDetailsFragment extends Fragment {
     private TextView tvDescription;
     private TextView getTvDescription;
     private ImageButton ibBack;
+
     private TextView tvTimeStamp;
     public static final String TAG = "PostDetailsFragmentCompose";
 
@@ -90,8 +85,8 @@ public class PostDetailsFragment extends Fragment {
             }
         });
 
-        Date createdAt = post.getCreatedAt();
-        String timeAgo = Utils.calculateTimeAgo(createdAt);
+        long time = post.getCreatedAt().getTime();
+        String timeAgo = (String) DateUtils.getRelativeTimeSpanString(time);
         tvTimeStamp.setText(timeAgo);
     }
 

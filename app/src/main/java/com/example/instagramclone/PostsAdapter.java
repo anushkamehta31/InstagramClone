@@ -17,15 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.instagramclone.fragments.PostDetailsFragment;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
+import static com.example.instagramclone.fragments.PostsFragment.minID;
+
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
+    public static final String KEY_PROFILE = "profilePic";
+
 
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -69,12 +74,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
+        private ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -97,6 +104,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+
+            Long id = Long.valueOf(posts.get(getAdapterPosition()).getCreatedAt().getTime());
+            if (id < minID) minID = id;
+
+            ParseUser user = post.getUser();
+            ParseFile profileImage = user.getParseFile(KEY_PROFILE);
+
+            if (profileImage != null) {
+                Glide.with(context).load(profileImage.getUrl()).into(ivProfile);
+            } else {
+                Glide.with(context).load(R.drawable.pfp).into(ivProfile);
+            }
+
         }
     }
 }
