@@ -56,6 +56,6 @@ public class GridAdapter extends BaseAdapter {
         if (image != null) {
             Glide.with(context).load(image.getUrl()).into(ivGridImage);
         }
-        return null;
+        return convertView;
     }
 }

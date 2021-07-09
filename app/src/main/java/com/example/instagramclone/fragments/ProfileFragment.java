@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,7 @@ import com.example.instagramclone.Constants;
 import com.example.instagramclone.GridAdapter;
 import com.example.instagramclone.LoginActivity;
 import com.example.instagramclone.Post;
+import com.example.instagramclone.PostsAdapter;
 import com.example.instagramclone.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -34,6 +38,8 @@ public class ProfileFragment extends Fragment {
     protected List<Post> userPosts;
     GridView gvPosts;
     GridAdapter adapter;
+    // protected PostsAdapter adapter;
+    protected RecyclerView rvPosts;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,12 +66,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        gvPosts = view.findViewById(R.id.gvPosts);
         userPosts = new ArrayList<>();
-
-        queryPosts();
-        gvPosts = getView().findViewById(R.id.gvPosts);
         adapter = new GridAdapter(getContext(), userPosts);
         gvPosts.setAdapter(adapter);
+        queryPosts();
+
     }
 
     protected void queryPosts() {
@@ -89,6 +95,7 @@ public class ProfileFragment extends Fragment {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
                 userPosts.addAll(posts);
+                adapter.notifyDataSetChanged();
             }
         });
     }

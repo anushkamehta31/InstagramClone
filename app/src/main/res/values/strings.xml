@@ -9,4 +9,10 @@
     <string name="log_out">Log Out</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="just_now_stamp">just now</string>
+    <string name="minute_time_stamp">a minute ago</string>
+    <string name="hour_time_stamp">an hour ago</string>
+    <string name="empty_description">Description cannot be empty</string>
+    <string name="no_image">There is no image!</string>
+    <string name="no_picture">Picture wasn\'t taken!</string>
 </resources>
