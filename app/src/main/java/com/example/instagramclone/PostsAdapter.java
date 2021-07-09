@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagramclone.fragments.PostDetailsFragment;
+import com.example.instagramclone.fragments.ProfileUserFragment;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -94,6 +95,28 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 }
             });
 
+            ivProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProfile();
+                }
+            });
+
+            tvUsername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProfile();
+                }
+            });
+
+        }
+
+        private void openProfile() {
+            MainActivity activity = (MainActivity) context;
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ProfileUserFragment fragment = ProfileUserFragment.newInstance(posts.get(getAdapterPosition()));
+            ft.replace(R.id.flContainer, fragment);
+            ft.commit();
         }
 
         public void bind(Post post) {
@@ -118,5 +141,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             }
 
         }
+
+
     }
 }
