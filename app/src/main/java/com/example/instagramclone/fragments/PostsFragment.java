@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.instagramclone.Constants;
 import com.example.instagramclone.Post;
 import com.example.instagramclone.PostsAdapter;
 import com.example.instagramclone.R;
@@ -26,11 +27,11 @@ import java.util.List;
 
 public class PostsFragment extends Fragment {
 
-    private RecyclerView rvPosts;
+    protected RecyclerView rvPosts;
     public static final String TAG = "PostsFragment";
-    private PostsAdapter adapter;
-    private List<Post> allPosts;
-    private SwipeRefreshLayout swipeContainer;
+    protected PostsAdapter adapter;
+    protected List<Post> allPosts;
+    protected SwipeRefreshLayout swipeContainer;
 
     public PostsFragment() {
         // Required empty public constructor
@@ -75,12 +76,14 @@ public class PostsFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
     }
 
     public void fetchTimelineAsync(int page) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(Constants.NUM_POSTS);
         query.addDescendingOrder(Post.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -92,13 +95,13 @@ public class PostsFragment extends Fragment {
         });
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // Specify which class to query
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // Specify what other data we would like to get back
         query.include(Post.KEY_USER);
         // Set maximum number of posts to 20
-        query.setLimit(20);
+        query.setLimit(Constants.NUM_POSTS);
         // Get most recent posts at top
         query.addDescendingOrder(Post.KEY_CREATED_AT);
         // Get all the posts

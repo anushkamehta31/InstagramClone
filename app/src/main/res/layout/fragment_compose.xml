@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ComposeFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
 
     <EditText
@@ -31,11 +32,5 @@
         android:layout_height="wrap_content"
         android:text="@string/submit"
         android:id="@+id/btnSubmit" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_out" />
 
 </LinearLayout>

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.instagramclone.Post;
 import com.example.instagramclone.R;
+import com.example.instagramclone.Utils;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -90,7 +91,7 @@ public class PostDetailsFragment extends Fragment {
         });
 
         Date createdAt = post.getCreatedAt();
-        String timeAgo = post.calculateTimeAgo(createdAt);
+        String timeAgo = Utils.calculateTimeAgo(createdAt);
         tvTimeStamp.setText(timeAgo);
     }
 
